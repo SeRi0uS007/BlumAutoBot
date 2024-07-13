@@ -1,26 +1,9 @@
 # BlumAutoBot
 
-Эта программа помогает автоматизировать процесс игры и получить больше монет. При этом не нужно заходить в свой телеграмм аккаунт или в веб версию.
+Play Blum games automatically
 
-Ссылка на бота: [Blum](https://t.me/BlumCryptoBot/app?startapp=ref_D3LL3IumB9)
-
-1. Необходимо включить опцию проверки webview (в `Telegram settings => Advanced => Experimental settings => Enable webview inspecting`)
-2. Нажмите **F12**, затем перейдите на вкладке консоль
-3. Скопируйте **Authorization** и введите ее в программу
-
-**Я не несу ответственности за блокировку вашей учетной записи**
-
-### Как это работает?
-
-* При выборе платформы стоит обратить внимание на то с какого устройства вы обычно играете
-* Количество повторений это колличество игр которые сделает программа (билетики)
-* Количество баллов это то сколько монет вы получите за одну игру (если нажать **Enter** программа выберет рандомное количество от 260 до 280)
-
-### Установка
-
-1. Склонируйте репозиторий `git clone https://github.com/provincialcxz/BlumAutoBot.git`
-2. Перейдите в папку с проектом 
-3. Откройте проект в редакторе и запустите
-
-### Быстрый запуск
-* [Релиз](https://github.com/provincialcxz/BlumAutoBot/releases/tag/first)
+1. Enable Telegram WebView (`Telegram settings => Advanced => Experimental settings => Enable webview inspecting`)
+2. Press **F12** and go to the Network tab ![Network Tab Screenshot](https://i.imgur.com/2sOxffx.png)
+3. Make some moves between tabs in blum game to get network logs ![Network Logs Screenshot](https://i.imgur.com/ISSQU3o.png)
+4. Select one log and copy **Authorization** Request Header (without Bearer text) ![Authorization Example Screenshot](https://i.imgur.com/jtUcZaR.png)
+5. Paste **AccessToken** into .json file in *accounts* folder ![JSON File Example](https://i.imgur.com/bg2kc8y.png)

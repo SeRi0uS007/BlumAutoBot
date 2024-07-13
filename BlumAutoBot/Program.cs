@@ -1,48 +1,23 @@
-﻿namespace BlumBot
+﻿namespace BlumBot;
+
+public static class Program
 {
-    class Program
+    static async Task Main()
     {
-        static async Task Main(string[] args)
+        var settings = Settings.ReadSettings();
+
+        if (settings.Length == 0)
         {
-            Helper help = new Helper();
-            Requests requests = new Requests();
+            Console.WriteLine("Rechek accounts folder");
+            return;
+        }
 
-            string authorizationToken = help.GetAuthorizationToken();
-
-            while (true)
-            {
-                try
-                {
-                    int choice = help.platform();
-                    int repetitions = help.replay();
-                    int points = help.scores();
-
-                    List<Task<string>> tasks = new List<Task<string>>();
-
-                    for (int i = 0; i < repetitions; i++)
-                    {
-                        tasks.Add(requests.MakeRequestsAsync(authorizationToken, points, i + 1, choice));
-                    }
-
-                    string[] results = await Task.WhenAll(tasks);
-
-                    for (int i = 0; i < results.Length; i++)
-                    {
-                        Console.WriteLine($"Результат итерации {i + 1}:\n{results[i]}\n");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Ошибка: {ex.Message}");
-                }
-
-                Console.WriteLine("Еще разок? (yes/no): ");
-                string runAgain = Console.ReadLine().ToLower();
-                if (runAgain != "yes" && runAgain != "y")
-                {
-                    break;
-                }
-            }
+        for (int i = 0; i < settings.Length; i++)
+        {
+            Console.WriteLine($"Working with account {i + 1}");
+            var client = new BlumClient(settings[i]);
+            var success = await client.StartBotAsync();
+            Console.WriteLine($"Account {i + 1} sucess: {success}");
         }
     }
 }
