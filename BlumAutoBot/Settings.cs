@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace BlumBot;
 
@@ -31,7 +32,7 @@ public class Settings
             Settings? settings;
             try
             {
-                settings = JsonSerializer.Deserialize<Settings>(file);
+                settings = JsonSerializer.Deserialize(file, SourceGenerationContext.Default.Settings);
             }
             catch (JsonException)
             {
@@ -58,4 +59,10 @@ public class Settings
 
         return Directory.GetFiles(settingsPath).Select(x => ReadSettings(x)).Where(x => x != null).ToArray()!;
     }
+}
+
+[JsonSourceGenerationOptions(WriteIndented = true)]
+[JsonSerializable(typeof(Settings))]
+internal partial class SourceGenerationContext: JsonSerializerContext
+{
 }
